@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.attendance.controller.StudentDashboardController">
+    <!-- ==================== BAGIAN HEADER ==================== -->
+    <top>
+        <VBox style="-fx-background-color: #131D4F;" styleClass="header">
+            <children>
+                <!-- Baris pertama: Sambutan, waktu, dan tombol logout -->
+                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                    <children>
+                        <!-- Label sambutan siswa  -->
+                        <Label fx:id="welcomeLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" styleClass="welcome-label" text="Selamat Datang" textFill="WHITE">
+                        </Label>
+
+                        <!-- Spacer untuk mendorong elemen ke kanan -->
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <!-- Notification Bell -->
+                        <Button fx:id="notificationButton" onAction="#handleShowNotifications" style="-fx-background-color: #FFD700;" styleClass="notification-button" text="🔔">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+
+                        <!-- Badge untuk unread notifications -->
+                        <Label fx:id="notificationBadge" styleClass="notification-badge" text="0" visible="false" />
+
+                        <!-- Label waktu real-time -->
+                        <Label fx:id="currentTimeLabel" styleClass="time-label" text="Waktu Sekarang: --:--:--" textFill="WHITE" />
+
+                        <!-- Tombol logout -->
+                        <Button fx:id="logoutButton" onAction="#handleLogout" style="-fx-background-color: #800000;" styleClass="logout-button" text="Logout" />
+                    </children>
+                </HBox>
+
+                <!-- Baris kedua: Label pesan notifikasi -->
+                <Label fx:id="messageLabel" styleClass="message" />
+            </children>
+
+            <!-- Padding untuk header -->
+            <padding>
+                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+            </padding>
+        </VBox>
+    </top>
+
+    <!-- ==================== SIDEBAR NAVIGATION ==================== -->
+    <left>
+        <VBox maxWidth="200" prefHeight="600.0" prefWidth="180.0" spacing="5" style="-fx-background-color: #E0F2FE;" styleClass="sidebar">
+            <padding>
+                <Insets bottom="20" left="10" right="10" top="20" />
+            </padding>
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../picture/go-stis.png" />
+                    </image>
+                </ImageView>
+
+                <Button fx:id="buttonShowDashboard" alignment="CENTER" onAction="#handleShowDashboard" prefWidth="160" styleClass="sidebar-button" text="🏠 Dashboard" textAlignment="CENTER" />
+
+                <Button fx:id="buttonShowModules" alignment="CENTER" onAction="#handleShowModules" prefWidth="160" styleClass="sidebar-button" text="📚 Modul" textAlignment="CENTER" />
+
+                <Button fx:id="buttonShowHistory" alignment="CENTER" onAction="#handleShowHistory" prefWidth="160" styleClass="sidebar-button" text="📋 Riwayat" textAlignment="CENTER" />
+
+                <Button fx:id="buttonRefreshSidebar" alignment="CENTER" onAction="#handleRefresh" prefWidth="160" styleClass="sidebar-button" text="🔄 Refresh" textAlignment="CENTER" />
+            </children>
+        </VBox>
+    </left>
+
+    <!-- ==================== BAGIAN KONTEN UTAMA ==================== -->
+    <center>
+        <StackPane>
+            <!-- Dashboard Content -->
+            <HBox fx:id="dashboardContent" spacing="20.0">
+                <children>
+                    <!-- ========== SEKSI JADWAL HARI INI ========== -->
+                    <VBox alignment="TOP_LEFT" prefHeight="560.0" prefWidth="560.0" spacing="15.0" style="-fx-background-color: #F5F5DC;" styleClass="main-section">
+                        <children>
+                            <!-- Header seksi jadwal -->
+                            <HBox alignment="TOP_LEFT" spacing="10.0">
+                                <children>
+                                    <!-- Judul seksi -->
+                                    <Label prefHeight="44.0" prefWidth="109.0" styleClass="section-title" text="Jadwal Hari Ini">
+                                        <font>
+                                            <Font name="System Bold" size="18.0" />
+                                        </font>
+                                    </Label>
+
+                                    <!-- Spacer -->
+                                    <Region HBox.hgrow="ALWAYS" />
+
+                                    <!-- Tombol refresh -->
+                                    <Button onAction="#handleRefresh" styleClass="refresh-button" text="Refresh" />
+                                </children>
+                            </HBox>
+
+                            <!-- Area scroll untuk daftar jadwal -->
+                            <ScrollPane fitToWidth="true" styleClass="schedule-scroll">
+                                <content>
+                                    <!-- Container yang akan diisi dengan kartu jadwal -->
+                                    <VBox fx:id="scheduleContainer" spacing="10.0" />
+                                </content>
+                            </ScrollPane>
+                        </children>
+
+                        <!-- Padding untuk seksi jadwal -->
+                        <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        </padding>
+                    </VBox>
+                </children>
+
+                <!-- Padding untuk konten utama -->
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+            </HBox>
+
+            <!-- Modules Content -->
+            <VBox fx:id="modulesContent" managed="false" spacing="15.0" styleClass="content-panel" visible="false">
+                <children>
+                    <Label styleClass="panel-title" text="📚 Modul Pembelajaran">
+                        <font>
+                            <Font name="System Bold" size="18.0" />
+                        </font>
+                    </Label>
+
+                    <Label style="-fx-wrap-text: true;" styleClass="form-label" text="Akses dan download modul pembelajaran yang telah diunggah oleh tentor">
+                        <font>
+                            <Font name="System" size="13" />
+                        </font>
+                    </Label>
+
+                    <!-- Filter Section -->
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <children>
+                            <Label styleClass="form-label" text="Filter berdasarkan mata pelajaran:" />
+                            <ComboBox fx:id="comboBoxSubjectFilter" onAction="#handleSubjectFilter" prefWidth="200" promptText="Semua Mata Pelajaran" />
+                            <Button onAction="#handleRefreshModules" styleClass="refresh-button" text="🔄 Refresh" />
+                        </children>
+                    </HBox>
+
+                    <!-- Modules Grid -->
+                    <ScrollPane fitToWidth="true" prefHeight="400" styleClass="modules-scroll">
+                        <content>
+                            <VBox fx:id="modulesContainer" spacing="10.0" />
+                        </content>
+                    </ScrollPane>
+                </children>
+
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+            </VBox>
+
+            <!-- History Content -->
+            <VBox fx:id="historyContent" managed="false" spacing="15.0" styleClass="content-panel" visible="false">
+                <children>
+                    <Label styleClass="panel-title" text="📋 Riwayat Absensi Lengkap">
+                        <font>
+                            <Font name="System Bold" size="18.0" />
+                        </font>
+                    </Label>
+
+                    <Label style="-fx-wrap-text: true;" styleClass="form-label" text="Lihat riwayat absensi lengkap Anda dengan detail statistik kehadiran">
+                        <font>
+                            <Font name="System" size="13" />
+                        </font>
+                    </Label>
+
+                    <!-- Statistics Summary -->
+                    <HBox alignment="CENTER" spacing="20">
+                        <children>
+                            <VBox alignment="CENTER" spacing="5" styleClass="stats-card">
+                                <children>
+                                    <Label fx:id="labelTotalAttendance" styleClass="stats-number" text="0" />
+                                    <Label styleClass="stats-label" text="Total Absensi" />
+                                </children>
+                            </VBox>
+
+                            <VBox alignment="CENTER" spacing="5" styleClass="stats-card">
+                                <children>
+                                    <Label fx:id="labelPresentCount" styleClass="stats-number stats-present" text="0" />
+                                    <Label styleClass="stats-label" text="Hadir" />
+                                </children>
+                            </VBox>
+
+                            <VBox alignment="CENTER" spacing="5" styleClass="stats-card">
+                                <children>
+                                    <Label fx:id="labelLateCount" styleClass="stats-number stats-late" text="0" />
+                                    <Label styleClass="stats-label" text="Terlambat" />
+                                </children>
+                            </VBox>
+
+                            <VBox alignment="CENTER" spacing="5" styleClass="stats-card">
+                                <children>
+                                    <Label fx:id="labelAttendanceRate" styleClass="stats-number stats-rate" text="0%" />
+                                    <Label styleClass="stats-label" text="Tingkat Kehadiran" />
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+
+                    <!-- Full History Table -->
+                    <TableView fx:id="fullHistoryTable" prefHeight="350">
+                        <columns>
+                            <TableColumn fx:id="fullSubjectColumn" prefWidth="150.0" text="Mata Pelajaran" />
+                            <TableColumn fx:id="fullDateColumn" prefWidth="100.0" text="Tanggal" />
+                            <TableColumn fx:id="fullTimeColumn" prefWidth="80.0" text="Waktu" />
+                            <TableColumn fx:id="fullStatusColumn" prefWidth="100.0" text="Status" />
+                            <TableColumn fx:id="fullTeacherColumn" prefWidth="120.0" text="Tentor" />
+                        </columns>
+                    </TableView>
+                </children>
+
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+            </VBox>
+
+            <!-- Notification Panel (Hidden by default) -->
+            <VBox fx:id="notificationPanel" managed="false" maxWidth="500.0" prefWidth="500.0" spacing="10.0" styleClass="notification-panel" visible="false">
+                <children>
+                    <!-- Header Panel -->
+                    <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="notification-header">
+                        <children>
+                            <Label styleClass="notification-title" text="🔔 Notifikasi">
+                                <font>
+                                    <Font name="System Bold" size="18.0" />
+                                </font>
+                            </Label>
+
+                            <Region HBox.hgrow="ALWAYS" />
+
+                            <Button fx:id="markAllReadButton" onAction="#handleMarkAllAsRead" styleClass="mark-read-button" text="Tandai Semua Dibaca" />
+
+                            <Button onAction="#handleCloseNotifications" styleClass="close-button" text="✕" />
+                        </children>
+                    </HBox>
+
+                    <!-- Notification List -->
+                    <ScrollPane fitToWidth="true" prefHeight="400.0" styleClass="notification-scroll">
+                        <content>
+                            <VBox fx:id="notificationContainer" spacing="5.0" />
+                        </content>
+                    </ScrollPane>
+                </children>
+
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+            </VBox>
+        </StackPane>
+    </center>
+
+    <!-- ==================== STYLESHEET ==================== -->
+    <stylesheets>
+        <URL value="@../css/style.css" />
+    </stylesheets>
+</BorderPane>

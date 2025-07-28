@@ -1,0 +1,166 @@
+Folder PATH listing for volume New Volume
+Volume serial number is 026B-E77C
+D:.
+¦   .gitignore
+¦   attendance_db.sql
+¦   hs_err_pid22788.jfr
+¦   hs_err_pid22788.log
+¦   hs_err_pid4928.jfr
+¦   hs_err_pid4928.log
+¦   mvnw
+¦   mvnw.cmd
+¦   pom.xml
+¦   struktur.txt
+¦   
++---.idea
+¦   ¦   .gitignore
+¦   ¦   compiler.xml
+¦   ¦   encodings.xml
+¦   ¦   jarRepositories.xml
+¦   ¦   misc.xml
+¦   ¦   vcs.xml
+¦   ¦   workspace.xml
+¦   ¦   
+¦   +---libraries
+¦           fontawesomefx_commons_9_1_2.xml
+¦           mysql_connector_j_9_3_0.xml
+¦           
++---.mvn
+¦   +---wrapper
+¦           maven-wrapper.jar
+¦           maven-wrapper.properties
+¦           
++---picture
+¦   +---profil
+¦           tentor_1751620460346_Cristiano Ronaldo.jpg
+¦           
++---skemaDB
+¦   +---Diagram
+¦           ClassDiagramPBO.drawio
+¦           ERDpbo.drawio
+¦           projectPBO.drawio
+¦           SequenceDiagram.drawio
+¦           
++---src
+¦   +---main
+¦       +---java
+¦       ¦   ¦   module-info.java
+¦       ¦   ¦   
+¦       ¦   +---com
+¦       ¦       +---attendance
+¦       ¦           ¦   DatabaseManager.java
+¦       ¦           ¦   Main.java
+¦       ¦           ¦   SceneManager.java
+¦       ¦           ¦   
+¦       ¦           +---controller
+¦       ¦           ¦       AdminDashboardController.java
+¦       ¦           ¦       SignInController.java
+¦       ¦           ¦       SignInUpController.java
+¦       ¦           ¦       SignUpController.java
+¦       ¦           ¦       StudentDashboardController.java
+¦       ¦           ¦       TentorDashboardController.java
+¦       ¦           ¦       
+¦       ¦           +---model
+¦       ¦                   Attendance.java
+¦       ¦                   Module.java
+¦       ¦                   Notification.java
+¦       ¦                   Schedule.java
+¦       ¦                   User.java
+¦       ¦                   
+¦       +---resources
+¦           +---css
+¦           ¦       CSSv2.css
+¦           ¦       style.css
+¦           ¦       
+¦           +---fxml
+¦           ¦       admin_dashboard.fxml
+¦           ¦       SignIn.fxml
+¦           ¦       SignInUp.fxml
+¦           ¦       SignUp.fxml
+¦           ¦       student_dashboard.fxml
+¦           ¦       tentor_dashboard.fxml
+¦           ¦       
+¦           +---picture
+¦               ¦   avatar.png
+¦               ¦   go-stis.png
+¦               ¦   logostis.svg
+¦               ¦   mail.png
+¦               ¦   pass.png
+¦               ¦   user.png
+¦               ¦   
+¦               +---profil
++---target
+¦   ¦   demo5-1.0-SNAPSHOT.jar
+¦   ¦   
+¦   +---classes
+¦   ¦   ¦   module-info.class
+¦   ¦   ¦   
+¦   ¦   +---com
+¦   ¦   ¦   +---attendance
+¦   ¦   ¦       ¦   DatabaseManager.class
+¦   ¦   ¦       ¦   Main.class
+¦   ¦   ¦       ¦   SceneManager.class
+¦   ¦   ¦       ¦   
+¦   ¦   ¦       +---controller
+¦   ¦   ¦       ¦       AdminDashboardController.class
+¦   ¦   ¦       ¦       SignInController.class
+¦   ¦   ¦       ¦       SignInUpController.class
+¦   ¦   ¦       ¦       SignUpController.class
+¦   ¦   ¦       ¦       StudentDashboardController$1.class
+¦   ¦   ¦       ¦       StudentDashboardController$2.class
+¦   ¦   ¦       ¦       StudentDashboardController$3.class
+¦   ¦   ¦       ¦       StudentDashboardController$4.class
+¦   ¦   ¦       ¦       StudentDashboardController.class
+¦   ¦   ¦       ¦       TentorDashboardController$1.class
+¦   ¦   ¦       ¦       TentorDashboardController$2.class
+¦   ¦   ¦       ¦       TentorDashboardController$3.class
+¦   ¦   ¦       ¦       TentorDashboardController$4.class
+¦   ¦   ¦       ¦       TentorDashboardController.class
+¦   ¦   ¦       ¦       
+¦   ¦   ¦       +---model
+¦   ¦   ¦               Attendance.class
+¦   ¦   ¦               Module.class
+¦   ¦   ¦               Notification.class
+¦   ¦   ¦               Schedule.class
+¦   ¦   ¦               User.class
+¦   ¦   ¦               
+¦   ¦   +---css
+¦   ¦   ¦       CSSv2.css
+¦   ¦   ¦       style.css
+¦   ¦   ¦       
+¦   ¦   +---fxml
+¦   ¦   ¦       admin_dashboard.fxml
+¦   ¦   ¦       SignIn.fxml
+¦   ¦   ¦       SignInUp.fxml
+¦   ¦   ¦       SignUp.fxml
+¦   ¦   ¦       student_dashboard.fxml
+¦   ¦   ¦       tentor_dashboard.fxml
+¦   ¦   ¦       
+¦   ¦   +---picture
+¦   ¦           avatar.png
+¦   ¦           go-stis.png
+¦   ¦           logostis.svg
+¦   ¦           mail.png
+¦   ¦           pass.png
+¦   ¦           user.png
+¦   ¦           
+¦   +---generated-sources
+¦   ¦   +---annotations
+¦   +---maven-archiver
+¦   ¦       pom.properties
+¦   ¦       
+¦   +---maven-status
+¦       +---maven-compiler-plugin
+¦           +---compile
+¦               +---default-compile
+¦                       createdFiles.lst
+¦                       inputFiles.lst
+¦                       
++---uploads
+    +---modules
+    ¦       TIU_Kelas A_1753622317671.pdf
+    ¦       
+    +---profiles
+            tentor_1753632295956_Poster Silat1.png
+            tentor_1753632315420_stis_removebg.png
+            

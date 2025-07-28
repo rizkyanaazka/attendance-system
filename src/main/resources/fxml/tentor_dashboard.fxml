@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.attendance.controller.TentorDashboardController">
+    <!-- Header -->
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="60" spacing="20.0" styleClass="header">
+            <padding>
+                <Insets bottom="10" left="20" right="20" top="10" />
+            </padding>
+            <children>
+                <Label fx:id="labelTentorName" style="-fx-font-family: 'Aringgo'; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" text="Selamat Datang, Tentor" textFill="WHITE" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="currentTimeLabel" styleClass="time-label" text="--:--:--" textFill="WHITE">
+                    <font>
+                        <Font name="System" size="14" />
+                    </font>
+                </Label>
+                <Button fx:id="logoutButton" onAction="#handleLogout" styleClass="logout-button" text="Logout" />
+            </children>
+        </HBox>
+    </top>
+    <!-- Sidebar Navigation -->
+    <left>
+        <VBox maxWidth="200" prefHeight="638.0" prefWidth="157.0" spacing="5" style="-fx-background-color: #F5F5DC;" styleClass="sidebar">
+            <padding>
+                <Insets bottom="20" left="10" right="10" top="20" />
+            </padding>
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../picture/go-stis.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="buttonShowSchedule" alignment="CENTER" contentDisplay="CENTER" onAction="#handleShowSchedule" prefWidth="180" styleClass="sidebar-button" text="📅 Jadwal" />
+<!--                <Button fx:id="buttonShowAttendance" alignment="CENTER" contentDisplay="CENTER" onAction="#handleShowAttendance" prefWidth="180" styleClass="sidebar-button" text="📊 Presensi" />-->
+                <Button fx:id="buttonShowModules" alignment="CENTER" contentDisplay="CENTER" onAction="#handleShowModules" prefWidth="180" styleClass="sidebar-button" text="📚 Modul" />
+                <Button fx:id="buttonRefresh" alignment="CENTER" contentDisplay="CENTER" onAction="#handleRefresh" prefWidth="180" styleClass="sidebar-button" text="🔄 Refresh" />
+            </children>
+        </VBox>
+    </left>
+    <!-- Main Content Area -->
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+            <!-- Section Jadwal -->
+            <VBox fx:id="scheduleSection" spacing="15" style="-fx-background-color: #FFD700;" styleClass="content-panel" visible="true">
+                <children>
+                    <Label styleClass="panel-title" text="📅 Jadwal Kelas Hari Ini">
+                        <font>
+                            <Font name="System Bold" size="18" />
+                        </font>
+                    </Label>
+                    <Label style="-fx-wrap-text: true;" styleClass="form-label" text="Kelola jadwal kelas Anda - Mulai kelas untuk membuka absensi siswa, akhiri kelas untuk menutup absensi">
+                        <font>
+                            <Font name="System" size="13" />
+                        </font>
+                    </Label>
+                    <!-- Tabel Jadwal -->
+                    <TableView fx:id="tableSchedule" prefHeight="450" styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="columnSubjectSchedule" prefWidth="150" text="Mata Pelajaran" />
+                            <TableColumn fx:id="columnClassName" prefWidth="100" text="Kelas" />
+                            <TableColumn fx:id="columnDate" prefWidth="100" text="Tanggal" />
+                            <TableColumn fx:id="columnTime" prefWidth="120" text="Jam" />
+                            <TableColumn fx:id="columnRoom" prefWidth="100" text="Ruangan" />
+                            <TableColumn fx:id="columnStatus" prefWidth="130" text="Status" />
+                            <TableColumn fx:id="columnActions" prefWidth="280" text="Aksi" />
+                        </columns>
+                    </TableView>
+                </children>
+            </VBox>
+            <!-- Section Presensi -->
+            <VBox fx:id="attendanceSection" managed="false" spacing="15" styleClass="content-panel" visible="false">
+                <children>
+                    <Label styleClass="panel-title" text="📊 Rekap Presensi Siswa">
+                        <font>
+                            <Font name="System Bold" size="18" />
+                        </font>
+                    </Label>
+                    <Label style="-fx-wrap-text: true;" styleClass="form-label" text="Daftar semua absensi siswa untuk mata pelajaran yang Anda ampu">
+                        <font>
+                            <Font name="System" size="13" />
+                        </font>
+                    </Label>
+                    <!-- Tabel Presensi -->
+                    <TableView fx:id="tableAttendance" prefHeight="450" styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="columnStudentName" prefWidth="200" text="Nama Siswa" />
+                            <TableColumn fx:id="columnStudentNim" prefWidth="120" text="NIM" />
+                            <TableColumn fx:id="columnSubjectAttendance" prefWidth="150" text="Mata Pelajaran" />
+                            <TableColumn fx:id="columnStatusAttendance" prefWidth="120" text="Status" />
+                            <TableColumn fx:id="columnDateAttendance" prefWidth="120" text="Tanggal" />
+                        </columns>
+                    </TableView>
+                </children>
+            </VBox>
+            <!-- Section Modul dengan ScrollPane -->
+            <ScrollPane fx:id="moduleSection" fitToWidth="true" hbarPolicy="NEVER" managed="false" styleClass="content-panel" vbarPolicy="AS_NEEDED" visible="false">
+                <content>
+                    <VBox spacing="15" styleClass="scrollable-content">
+                        <padding>
+                            <Insets bottom="20" left="20" right="20" top="20" />
+                        </padding>
+                        <children>
+                            <Label styleClass="panel-title" text="📚 Manajemen Modul Pembelajaran">
+                                <font>
+                                    <Font name="System Bold" size="18" />
+                                </font>
+                            </Label>
+                            <Label style="-fx-wrap-text: true;" styleClass="form-label" text="Upload dan kelola modul pembelajaran untuk siswa Anda">
+                                <font>
+                                    <Font name="System" size="13" />
+                                </font>
+                            </Label>
+                            <!-- Upload Form -->
+                            <VBox spacing="10" styleClass="upload-form">
+                                <children>
+                                    <Label styleClass="subtitle" text="📤 Upload Modul Baru">
+                                        <font>
+                                            <Font name="System Bold" size="16" />
+                                        </font>
+                                    </Label>
+                                    <HBox alignment="CENTER_LEFT" spacing="15">
+                                        <children>
+                                            <VBox prefWidth="200" spacing="5">
+                                                <children>
+                                                    <Label styleClass="form-label" text="Judul Modul:" />
+                                                    <TextField fx:id="textFieldModuleTitle" promptText="Masukkan judul modul" />
+                                                </children>
+                                            </VBox>
+                                            <VBox prefWidth="200" spacing="5">
+                                                <children>
+                                                    <Label styleClass="form-label" text="Kelas Tujuan:" />
+                                                    <ComboBox fx:id="comboBoxTargetClass" prefWidth="200" promptText="Pilih kelas" />
+                                                </children>
+                                            </VBox>
+                                            <VBox prefWidth="150" spacing="5">
+                                                <children>
+                                                    <Label styleClass="form-label" text="File:" />
+                                                    <Button fx:id="buttonSelectFile" onAction="#handleSelectFile" styleClass="secondary-button" text="Pilih File" />
+                                                </children>
+                                            </VBox>
+                                        </children>
+                                    </HBox>
+                                    <VBox spacing="5">
+                                        <children>
+                                            <Label styleClass="form-label" text="Deskripsi:" />
+                                            <TextArea fx:id="textAreaModuleDescription" prefRowCount="3" promptText="Masukkan deskripsi modul (opsional)" />
+                                        </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="10">
+                                        <children>
+                                            <Label fx:id="labelSelectedFile" styleClass="form-label" text="Belum ada file dipilih" />
+                                            <Region HBox.hgrow="ALWAYS" />
+                                            <Button fx:id="buttonUploadModule" disable="true" onAction="#handleUploadModule" styleClass="primary-button" text="📤 Upload Modul" />
+                                        </children>
+                                    </HBox>
+                                </children>
+                            </VBox>
+                            <Separator />
+                            <!-- Modules List -->
+                            <Label styleClass="subtitle" text="📋 Daftar Modul">
+                                <font>
+                                    <Font name="System Bold" size="16" />
+                                </font>
+                            </Label>
+                            <TableView fx:id="tableModules" prefHeight="300" styleClass="table-view">
+                                <columns>
+                                    <TableColumn fx:id="columnModuleTitle" prefWidth="200" text="Judul" />
+                                    <TableColumn fx:id="columnModuleClass" prefWidth="100" text="Kelas" />
+                                    <TableColumn fx:id="columnModuleFile" prefWidth="150" text="File" />
+                                    <TableColumn fx:id="columnModuleSize" prefWidth="80" text="Ukuran" />
+                                    <TableColumn fx:id="columnModuleDate" prefWidth="120" text="Tanggal Upload" />
+                                    <TableColumn fx:id="columnModuleActions" prefWidth="100" text="Aksi" />
+                                </columns>
+                            </TableView>
+                        </children>
+                    </VBox>
+                </content>
+            </ScrollPane>
+        </StackPane>
+    </center>
+    <stylesheets>
+        <URL value="@../css/style.css" />
+    </stylesheets>
+</BorderPane>
